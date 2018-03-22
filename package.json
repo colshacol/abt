@@ -51,10 +51,10 @@
 		"husky": "^0.14.3",
 		"jest": "^22.4.2",
 		"prettier": "^1.11.1",
-		"pretty-quick": "^1.4.1",
-		"regenerator-runtime": "^0.11.1"
+		"pretty-quick": "^1.4.1"
 	},
 	"dependencies": {
+		"regenerator-runtime": "^0.11.1",
 		"ink": "^0.4.1",
 		"ink-spaces": "^0.0.1",
 		"ink-spinner": "^1.0.0",
