@@ -1,19 +1,21 @@
 #!/usr/bin/env node
 'use strict'
 
-var _regeneratorRuntime = _interopRequireDefault(require('regenerator-runtime'))
-
-var jq = _interopRequireWildcard(require('node-jq'))
-
 var _ink = _interopRequireWildcard(require('ink'))
 
-var _fs = _interopRequireDefault(require('fs'))
+var _yargs = _interopRequireDefault(require('yargs'))
 
 var _Provider = require('./components/Provider')
 
 var _App = require('./components/App')
 
 var _handleArgs = require('./utilities/handleArgs')
+
+var _yargs$argv
+
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj }
+}
 
 function _interopRequireWildcard(obj) {
 	if (obj && obj.__esModule) {
@@ -40,19 +42,11 @@ function _interopRequireWildcard(obj) {
 	}
 }
 
-function _interopRequireDefault(obj) {
-	return obj && obj.__esModule ? obj : { default: obj }
-}
-
-const args = require('yargs').argv
-
-;(0, _handleArgs.handleArgs)(args)
-
 _ink.default.render(
 	(0, _ink.h)(
 		_Provider.Provider,
 		{
-			args: args
+			appVars: ((_yargs$argv = _yargs.default.argv), (0, _handleArgs.handleArgs)(_yargs$argv))
 		},
 		(0, _ink.h)(_App.App, null)
 	)

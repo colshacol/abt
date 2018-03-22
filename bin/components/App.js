@@ -9,8 +9,6 @@ var _inkSpaces = require('ink-spaces')
 
 var _inkSpinner = _interopRequireDefault(require('ink-spinner'))
 
-var _consts = require('../consts')
-
 var _find = require('../utilities/find')
 
 function _interopRequireDefault(obj) {
@@ -67,7 +65,8 @@ class App extends _ink.default.Component {
 				enumerable: true,
 				writable: true,
 				value: async () => {
-					const json = await (0, _find.find)(_consts.PACKAGE_JSON, this.context.args._[0])
+					const { packageJsonPath, propertyPath } = this.context.appVars
+					const json = await (0, _find.find)(packageJsonPath, propertyPath)
 					this.setJSON(json === 'null' ? '{}' : json)
 				}
 			}),
@@ -77,10 +76,12 @@ class App extends _ink.default.Component {
 				writable: true,
 				value: json => {
 					this.json = json
-					this.setState(state => ({
-						gotJSON: true
-					}))
-					setTimeout(() => process.exit(0), 100)
+					this.setState(
+						state => ({
+							gotJSON: true
+						}),
+						() => setTimeout(() => process.exit(0), 250)
+					)
 				}
 			}),
 			_temp
@@ -124,22 +125,28 @@ class App extends _ink.default.Component {
 								{
 									key: '1'
 								},
-								'["',
-								_consts.PACKAGE_JSON,
-								'"]',
-								this.context.args._[0],
-								' == '
+								'abt: ',
+								this.pathText
 							),
+							(0, _ink.h)(_inkSpaces.BlankLines, {
+								count: 2,
+								key: '2'
+							}),
 							(0, _ink.h)(
-								_ink.Text,
+								'div',
 								{
-									key: '2'
+									key: '3'
 								},
-								this.json
+								(0, _ink.h)(_ink.Text, null, this.json)
 							)
 					  ]
 					: null
 		)
+	}
+
+	get pathText() {
+		const { appVars } = this.context
+		return `["${appVars.packageJsonPath}"].${appVars.propertyPath}`
 	}
 }
 

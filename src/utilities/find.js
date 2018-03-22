@@ -1,7 +1,17 @@
 import regeneratorRuntime from 'regenerator-runtime'
-import * as jq from 'node-jq'
+import prettyjson from 'prettyjson'
+import fs from 'fs'
 
-export const find = async (filePath, jsonPath, settings = { sort: true }) => {
-	const json = await jq.run(jsonPath, filePath, settings)
-	return json
+const readJsonFile = (filePath: string) => {
+	return fs.readFileSync(filePath, 'utf8') |> JSON.parse
+}
+
+export const find = (filePath: string, jsonPath: string) => {
+	try {
+		const json = readJsonFile(filePath)
+		return prettyjson.render(json[jsonPath])
+	} catch (error) {
+		console.log(`\nabt -> ERROR:\n\n`, { error }, '\n\n\nabt -> END_ERROR')
+		setTimeout(() => process.exit(0), 250)
+	}
 }

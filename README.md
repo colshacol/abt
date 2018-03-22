@@ -21,7 +21,7 @@ Given the command `abt` or `abt .scripts`, abt will give you your `package.json`
 }
 ```
 
-Given the command `abt .dependencies`, abt will give you the `dependencies` value found in your `package.json`: 
+Given the command `abt .dependencies`, abt will give you the `dependencies` value found in your `package.json`:
 
 ```json
 ["<path/to/projectRoot>/package.json"].dependencies == {
@@ -33,7 +33,7 @@ Given the command `abt .dependencies`, abt will give you the `dependencies` valu
 }
 ```
 
-Given the command `abt .version`, abt will give you the `version` value found in your `package.json`: 
+Given the command `abt .version`, abt will give you the `version` value found in your `package.json`:
 
 ```json
 ["<path/to/projectRoot>/package.json"].version == "0.0.2"
@@ -41,11 +41,15 @@ Given the command `abt .version`, abt will give you the `version` value found in
 
 ## Shortcuts
 
-|arg  |same as|
-|---	|---	  |
-|`.DD`|'.devDependencies'|
-|`.PD`|'.peerDependencies'|
-|`.D` |'.dependencies'|
-|`.V` |'.version'|
+| arg   | same as             |
+| ----- | ------------------- |
+| `.DD` | '.devDependencies'  |
+| `.PD` | '.peerDependencies' |
+| `.D`  | '.dependencies'     |
+| `.V`  | '.version'          |
 
 _Example: `abt .DD` -> `abt .devDependencies`_
+
+## Notes
+
+_abt is not guaranteed to work on Node < 8.1_

@@ -4,13 +4,21 @@ exports.__esModule = true
 exports.handleArgs = void 0
 
 const handleArgs = args => {
-	var _args$_
+	const _propertyPath = args._[0] || '.scripts'
 
-	args._[0] === '.DD' && (args._[0] = '.devDependencies')
-	args._[0] === '.PD' && (args._[0] = '.peerDependencies')
-	args._[0] === '.D' && (args._[0] = '.dependencies')
-	args._[0] === '.V' && (args._[0] = '.version')
-	;(_args$_ = args._)[0] || (_args$_[0] = '.scripts')
+	const propertyPath =
+		_propertyPath === '.DD'
+			? 'devDependencies'
+			: _propertyPath === '.PD'
+				? 'peerDependencies'
+				: _propertyPath === '.D'
+					? 'dependencies'
+					: _propertyPath === '.V' ? 'version' : _propertyPath.slice(1)
+	return {
+		packageJsonPath: `${process.env.PWD}/package.json`,
+		pwd: process.env.PWD,
+		propertyPath
+	}
 }
 
 exports.handleArgs = handleArgs

@@ -54,11 +54,11 @@
 		"pretty-quick": "^1.4.1"
 	},
 	"dependencies": {
-		"regenerator-runtime": "^0.11.1",
 		"ink": "^0.4.1",
 		"ink-spaces": "^0.0.1",
 		"ink-spinner": "^1.0.0",
-		"node-jq": "^1.2.0",
+		"prettyjson": "^1.2.1",
+		"regenerator-runtime": "^0.11.1",
 		"yargs": "^11.0.0"
 	}
 }

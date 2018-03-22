@@ -1,7 +1,23 @@
-export const handleArgs = (args) => {
-	args._[0] === '.DD' && (args._[0] = '.devDependencies')
-	args._[0] === '.PD' && (args._[0] = '.peerDependencies')
-	args._[0] === '.D' && (args._[0] = '.dependencies')
-	args._[0] === '.V' && (args._[0] = '.version')
-	args._[0] ||= '.scripts'
+export const handleArgs = args => {
+	const _propertyPath = args._[0] || '.scripts'
+
+	const propertyPath = do {
+		if (_propertyPath === '.DD') {
+			;('devDependencies')
+		} else if (_propertyPath === '.PD') {
+			;('peerDependencies')
+		} else if (_propertyPath === '.D') {
+			;('dependencies')
+		} else if (_propertyPath === '.V') {
+			;('version')
+		} else {
+			_propertyPath.slice(1)
+		}
+	}
+
+	return {
+		packageJsonPath: `${process.env.PWD}/package.json`,
+		pwd: process.env.PWD,
+		propertyPath
+	}
 }
