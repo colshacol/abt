@@ -23,22 +23,24 @@ const readJsonFile = filePath => {
 
 const find = (filePath, jsonPath) => {
 	try {
-		const json = readJsonFile(filePath)
-		return _prettyjson.default.render(json[jsonPath])
+		var _filePath, _json$jsonPath
+
+		const json = ((_filePath = filePath), readJsonFile(_filePath))
+		return (_json$jsonPath = json[jsonPath]), _prettyjson.default.render(_json$jsonPath)
 	} catch (error) {
-		console.log(`\nabt -> ERROR:\n\n`, {
-			error
-		})
-		setTimeout(() => process.exit(0), 100)
+		if (String(error).includes('Cannot convert undefined or null to object')) {
+			return "abt: jsonPath doesn't exist in package.json"
+		} else {
+			console.log(
+				`\nabt -> ERROR:\n\n`,
+				{
+					error
+				},
+				'\n\n\nabt -> END_ERROR'
+			)
+			setTimeout(() => process.exit(0), 250)
+		}
 	}
-} // export const find = async (filePath, jsonPath, settings = { sort: true }) => {
-// 	try {
-// 		const json = await jq.run(jsonPath, filePath, settings)
-// 		return json
-// 	} catch(error) {
-// 		console.log(`abt -> ERROR:`, { error })
-// 		setTimeout(() => process.exit(0), 100)
-// 	}
-// }
+}
 
 exports.find = find
