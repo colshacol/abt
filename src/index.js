@@ -7,10 +7,10 @@ import fs from 'fs'
 
 import { Provider } from './components/Provider'
 import { App } from './components/App'
+import { handleArgs } from './utilities/handleArgs'
 
 const args = require('yargs').argv
-
-args._[0] ||= '.scripts'
+handleArgs(args)
 
 Ink.render(
 	<Provider args={args}>

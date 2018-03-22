@@ -39,7 +39,7 @@ class App extends _ink.default.Component {
       writable: true,
       value: async () => {
         const json = await (0, _find.find)(_consts.PACKAGE_JSON, this.context.args._[0]);
-        this.setJSON(json);
+        this.setJSON(json === 'null' ? '{}' : json);
       }
     }), Object.defineProperty(this, "setJSON", {
       configurable: true,

@@ -37,7 +37,7 @@ export class App extends Ink.Component {
 
 	getJSON = async () => {
 		const json = await find(PACKAGE_JSON, this.context.args._[0])
-		this.setJSON(json)
+		this.setJSON(json === 'null' ? '{}' : json)
 	}
 
 	setJSON = (json: any) => {

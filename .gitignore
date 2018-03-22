@@ -1,4 +1,5 @@
 node_modules/
+bin/
 .vscode/
 .DS_STORE
 yarn-error.log

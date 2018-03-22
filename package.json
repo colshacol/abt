@@ -1,7 +1,7 @@
 {
 	"name": "abt",
 	"version": "0.0.2",
-	"description": "",
+	"description": "A CLI tool to get easy info from your package.json.",
 	"main": "./code/index.js",
 	"repository": "https://github.com/colshacol/balt",
 	"author": "Colton Colcleasure <colshacol@gmail.com>",
@@ -59,7 +59,6 @@
 		"ink-spaces": "^0.0.1",
 		"ink-spinner": "^1.0.0",
 		"node-jq": "^1.2.0",
-		"shelljs": "^0.8.1",
 		"yargs": "^11.0.0"
 	}
 }
