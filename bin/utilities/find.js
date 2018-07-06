@@ -14,11 +14,7 @@ function _interopRequireDefault(obj) {
 }
 
 const readJsonFile = filePath => {
-	var _fs$readFileSync
-
-	return (
-		(_fs$readFileSync = _fs.default.readFileSync(filePath, 'utf8')), JSON.parse(_fs$readFileSync)
-	)
+	return require(filePath) // return fs.readFileSync(filePath, 'utf8') |> JSON.parse
 }
 
 const find = (filePath, jsonPath) => {

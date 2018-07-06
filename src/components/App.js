@@ -1,61 +1,81 @@
-import Ink, { h, Text } from 'ink'
+import Ink, { h, Color } from 'ink'
 import { Tabs, Spaces, BlankLines } from 'ink-spaces'
 import Spinner from 'ink-spinner'
+import isEmpty from 'is-empty'
+import SelectInput from './SelectInput'
+import shell from 'shelljs'
 
-import { find } from '../utilities/find'
+const generateScriptItems = scripts => {
+	const scriptPairs = Object.entries(scripts)
+
+	const sortedByNameLength = scriptPairs.sort((a, b) => {
+		return a[0].length < b[0].length
+	})
+
+	const totalNameLength = sortedByNameLength[0][0].length + 5
+
+	const items = scriptPairs.reduce((final, [name, script]) => {
+		const item = {
+			name:
+				name +
+				Array(totalNameLength - name.length)
+					.fill(' ')
+					.join(''),
+			script
+		}
+		final.push(item)
+		return final
+	}, [])
+
+	return items.sort((a, b) => {
+		return a.name[0] > b.name[0]
+	})
+}
 
 export class App extends Ink.Component {
-	json = ''
-
-	state = {
-		gotJSON: false
-	}
+	state = {}
 
 	componentDidMount() {
-		this.getJSON()
+		const { packageJsonPath } = this.context.appVars
+		const pkg = require(packageJsonPath)
+		this.scripts = generateScriptItems(pkg.scripts)
+		this.setState({ ...pkg })
+	}
+
+	onSelect = item => {
+		shell.exec(item.script)
+		shell.exit()
 	}
 
 	render(props, state, context) {
 		return (
 			<div>
 				<Choose>
-					<When condition={!state.gotJSON}>
-						<BlankLines count={2} />
+					<When condition={isEmpty(state)}>
+						<BlankLines count={1} />
 						<Spinner green />
-						<Text>Getting the JSON.</Text>
+						<Color>Loading scripts.</Color>
 					</When>
-					<When condition={state.gotJSON}>
-						<BlankLines count={2} />
-						<Text>abt: {this.pathText}</Text>
-						<BlankLines count={2} />
+					<When condition={!isEmpty(state)}>
+						<BlankLines count={1} />
+						<Color>[ abt ∆ choose a script ]</Color>
+						<BlankLines count={1} />
+						<BlankLines count={1} />
 						<div>
-							<Text>{this.json}</Text>
+							<SelectInput items={this.scripts} onSelect={this.onSelect} itemComponent={Item} />
 						</div>
 					</When>
 				</Choose>
 			</div>
 		)
 	}
+}
 
-	get pathText() {
-		const { appVars } = this.context
-		return `["${appVars.packageJsonPath}"].${appVars.propertyPath}`
-	}
-
-	getJSON = async () => {
-		const { packageJsonPath, propertyPath } = this.context.appVars
-		const json = await find(packageJsonPath, propertyPath)
-		this.setJSON(json === 'null' ? '{}' : json)
-	}
-
-	setJSON = (json: any) => {
-		this.json = json
-
-		this.setState(
-			state => ({
-				gotJSON: true
-			}),
-			() => setTimeout(() => process.exit(0), 250)
-		)
-	}
+const Item = props => {
+	return (
+		<span>
+			<Color green>{props.name}</Color>
+			<Color>{props.script}</Color>
+		</span>
+	)
 }
