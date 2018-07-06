@@ -1,6 +1,6 @@
 {
 	"name": "abt",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A CLI tool to get easy info from your package.json.",
 	"main": "./code/index.js",
 	"repository": "https://github.com/colshacol/balt",
