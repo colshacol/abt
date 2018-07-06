@@ -14,7 +14,7 @@ abt
 
 abt will show you a list of your scripts and allow you to run them. That is all there is to it.
 
-![example](example.png)
+![example](https://cdn.rawgit.com/colshacol/abt/332691ed/example.png)
 
 ### Notes
 
