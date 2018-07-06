@@ -15,10 +15,11 @@ const generateScriptItems = scripts => {
 	const totalNameLength = sortedByNameLength[0][0].length + 5
 
 	const items = scriptPairs.reduce((final, [name, script]) => {
+		const stringLength = totalNameLength - name.length
 		const item = {
 			name:
 				name +
-				Array(totalNameLength - name.length)
+				Array(stringLength < 0 ? 5 : stringLength)
 					.fill(' ')
 					.join(''),
 			script
@@ -43,14 +44,19 @@ export class App extends Ink.Component {
 	}
 
 	onSelect = item => {
-		shell.exec(item.script)
+		this.setState({ EXEC: true })
+		shell.exec(`npm run ${item.name}`, { cwd: process.cwd() })
 		shell.exit()
+		process.exit(0)
 	}
 
 	render(props, state, context) {
 		return (
 			<div>
 				<Choose>
+					<When condition={state.EXEC}>
+						<Color />
+					</When>
 					<When condition={isEmpty(state)}>
 						<BlankLines count={1} />
 						<Spinner green />
