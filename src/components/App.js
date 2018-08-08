@@ -16,12 +16,12 @@ const generateScriptItems = scripts => {
 
 	const items = scriptPairs.reduce((final, [name, script]) => {
 		const stringLength = totalNameLength - name.length
+		const x = Array(stringLength < 0 ? 5 : stringLength)
+			.fill(' ')
+			.join('')
+
 		const item = {
-			name:
-				name +
-				Array(stringLength < 0 ? 5 : stringLength)
-					.fill(' ')
-					.join(''),
+			name: name + x,
 			script
 		}
 		final.push(item)
