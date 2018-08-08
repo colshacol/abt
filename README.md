@@ -19,3 +19,5 @@ abt will show you a list of your scripts and allow you to run them. That is all 
 ### Notes
 
 _abt is not guaranteed to work on Node < 8.1_
+
+_and don't even get me started on all the things I don't guarantee about Windows_
