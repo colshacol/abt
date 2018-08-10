@@ -5,6 +5,8 @@ import isEmpty from 'is-empty'
 import SelectInput from './SelectInput'
 import shell from 'shelljs'
 
+const child_process = require('child_process')
+
 const generateScriptItems = scripts => {
 	const scriptPairs = Object.entries(scripts)
 
@@ -45,9 +47,20 @@ export class App extends Ink.Component {
 
 	onSelect = item => {
 		this.setState({ EXEC: true })
-		shell.exec(`npm run ${item.name}`, { cwd: process.cwd() })
-		shell.exit()
-		process.exit(0)
+		const p = child_process.spawn(`npm`, ['run', item.name], { cwd: process.cwd() })
+		// const p = child_process.execFile(`npm run ${item.name}`)
+
+		p.stdout.on('data', data => {
+			console.log(`stdout: ${data}`)
+		})
+
+		p.stderr.on('error', err => {
+			console.log(`stderr: ${err}`)
+		})
+
+		p.on('close', code => {
+			console.log(`child process exited with code ${code}`)
+		})
 	}
 
 	render(props, state, context) {
