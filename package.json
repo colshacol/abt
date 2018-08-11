@@ -19,6 +19,7 @@
     "typescript": "~2.9.2"
   },
   "scripts": {
+    "test-abt-script": "echo $PATH",
     "clean": "rimraf coverage build tmp",
     "build": "tsc -p tsconfig.release.json",
     "watch": "tsc -w -p tsconfig.release.json",
@@ -34,6 +35,7 @@
     "node-dir": "^0.1.17",
     "prompts": "^0.1.13",
     "ramda": "^0.25.0",
+    "shelljs": "^0.8.2",
     "tslib": "~1.9.3"
   }
 }
