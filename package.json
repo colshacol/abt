@@ -1,9 +1,9 @@
 {
 	"name": "abt",
-	"version": "1.0.21",
-	"description": "A CLI tool to get easy info from your package.json.",
-	"main": "./code/index.js",
-	"repository": "https://github.com/colshacol/balt",
+	"version": "1.1.0",
+	"description": "A CLI tool to view and execute npm scripts.",
+	"main": "./bin/index.js",
+	"repository": "https://github.com/colshacol/abt",
 	"author": "Colton Colcleasure <colshacol@gmail.com>",
 	"license": "MIT",
 	"preferGlobal": true,
@@ -11,9 +11,12 @@
 		"abt": "./bin/index.js"
 	},
 	"scripts": {
-		"test": "jest",
+		"start": "node bin",
+		"test": "test",
+		"test-error": "fest",
+		"build": "babel src --out-dir bin",
 		"precommit": "pretty-quick --staged",
-		"build-run": "babel src --out-dir bin && node bin"
+		"build-run": "npm run build && npm start"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.0.0-beta.41",
@@ -54,12 +57,13 @@
 		"pretty-quick": "^1.4.1"
 	},
 	"dependencies": {
+		"arr-rotate": "^1.0.0",
+		"figures": "^2.0.0",
 		"ink": "^0.5.0",
-		"ink-select-input": "^1.1.0",
 		"ink-spaces": "^0.0.1",
 		"ink-spinner": "^2.0.0",
 		"is-empty": "^1.2.0",
-		"npx": "^10.2.0",
+		"lodash.isequal": "^4.5.0",
 		"prettyjson": "^1.2.1",
 		"regenerator-runtime": "^0.12.0",
 		"shelljs": "^0.8.2",

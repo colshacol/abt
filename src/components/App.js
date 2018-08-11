@@ -1,11 +1,8 @@
 import Ink, { h, Color } from 'ink'
-import { Tabs, Spaces, BlankLines } from 'ink-spaces'
+import { BlankLines } from 'ink-spaces'
 import Spinner from 'ink-spinner'
 import isEmpty from 'is-empty'
 import SelectInput from './SelectInput'
-import shell from 'shelljs'
-
-const child_process = require('child_process')
 
 const generateScriptItems = scripts => {
 	const scriptPairs = Object.entries(scripts)
@@ -39,31 +36,17 @@ export class App extends Ink.Component {
 	state = {}
 
 	componentDidMount() {
-		const { packageJsonPath } = this.context.appVars
+		const { packageJsonPath } = this.props.appVars
 		const pkg = require(packageJsonPath)
 		this.scripts = generateScriptItems(pkg.scripts)
 		this.setState({ ...pkg })
 	}
 
 	onSelect = item => {
-		this.setState({ EXEC: true })
-		const p = child_process.spawn(`npm`, ['run', item.name], { cwd: process.cwd() })
-		// const p = child_process.execFile(`npm run ${item.name}`)
-
-		p.stdout.on('data', data => {
-			console.log(`stdout: ${data}`)
-		})
-
-		p.stderr.on('error', err => {
-			console.log(`stderr: ${err}`)
-		})
-
-		p.on('close', code => {
-			console.log(`child process exited with code ${code}`)
-		})
+		this.props.onExit(item.name.trim())
 	}
 
-	render(props, state, context) {
+	render(props, state) {
 		return (
 			<div>
 				<Choose>

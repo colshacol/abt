@@ -72,7 +72,7 @@ class SelectInput extends Component {
 		}
 	}
 
-	handleKeyPress(ch, key) {
+	handleKeyPress(_, key) {
 		const { items, focus, limit, onSelect } = this.props
 		const { rotateIndex, selectedIndex } = this.state
 		const hasLimit = typeof limit === 'number'
